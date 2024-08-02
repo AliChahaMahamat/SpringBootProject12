@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-21">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 10.1/lib/jsp-api.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Apache Software Foundation/Tomcat 10.1/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admn/Downloads/jdk-8u111-nb-8_2-windows-x64.zip"/>
+	<classpathentry kind="lib" path="C:/Users/Admn/Downloads/postgresql-42.7.3.zip"/>
+	<classpathentry kind="lib" path="C:/Users/Admn/Downloads/apache-log4j-2.23.1-bin/log4j-api-2.23.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Admn/Downloads/apache-log4j-2.23.1-bin/log4j-core-2.23.1.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>
