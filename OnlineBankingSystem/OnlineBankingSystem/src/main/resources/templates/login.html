@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{login.title}">Login</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        function changeLanguage(select) {
+            const lang = select.value; // Get the selected language
+            window.location.search = '?lang=' + lang; // Redirect to the same page with the new lang parameter
+        }
+    </script>
+</head>
+<body>
+<section>
+    <form action="/req/login" method="post" id="loginForm">
+        <h1 th:text="#{login.title}">Login</h1>
+        <div class="dialog-row">
+            <p th:if="${param.error}" th:text="#{login.error}" class="text-center redText">Invalid username or password. Please try again.</p>
+        </div>
+
+        <div class="inputbox">
+            <ion-icon name="person-outline"></ion-icon>
+            <input name="username" id="username" type="text" required>
+            <label for="username" th:text="#{login.username}">Username</label>
+        </div>
+        <div class="inputbox">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input name="password" type="password" id="password" required>
+            <label for="password" th:text="#{login.password}">Password</label>
+        </div>
+
+        <div class="checkbox-wrapper">
+            <input type="checkbox" id="admin" name="admin">
+            <label for="admin" th:text="#{login.admin_checkbox}">Login as Admin</label>
+        </div>
+
+        <div class="register">
+            <p><a href="/forgot-password" th:text="#{login.forgot_password}">Forgot Password?</a></p>
+        </div>
+
+        <button type="submit" th:text="#{login.title}">Log in</button>
+
+        <div class="register">
+            <p>
+                <span th:text="#{login.register}">Don't have an account?</span>
+                <a href="/req/signup" class="login-link" th:text="#{login.registered}">Register!</a>
+            </p>
+            <div class="social-login">
+                <a href="/oauth2/authorization/facebook" class="btn-social">
+                    <ion-icon name="logo-facebook"></ion-icon>
+                    <span th:text="#{login.social.facebook}">Login with Facebook</span>
+                </a>
+                <a href="/oauth2/authorization/google" class="btn-social">
+                    <ion-icon name="logo-google"></ion-icon>
+                    <span th:text="#{login.social.google}">Login with Google</span>
+                </a>
+            </div>
+      </form>
+</section>
+</body>
+</html>

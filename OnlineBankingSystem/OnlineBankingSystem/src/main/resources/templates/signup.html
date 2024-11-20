@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{signup.title}">Signup Form</title>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/signup.js" defer></script>
+
+</head>
+<body>
+<section>
+
+    <!-- Corrected the form to use POST method -->
+    <form action="/req/signup" method="POST" id="signupForm" novalidate>
+        <h1 th:text="#{signup.heading}">Sign Up</h1>
+
+        <!-- Full Name -->
+        <div class="inputbox">
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" id="full-name" name="full-name" required pattern="^[A-Z][a-zA-Z ]*$" title="Full name must start with a capital letter and only contain letters and spaces.">
+            <label for="full-name" th:text="#{signup.fullName}">Full Name</label>
+        </div>
+
+        <!-- Date of Birth -->
+        <div class="inputbox">
+            <ion-icon name="calendar-outline"></ion-icon>
+            <input type="date" id="dob" name="dob" required>
+            <label for="dob" th:text="#{signup.dob}"></label>
+        </div>
+
+        <!-- Phone Number -->
+        <div class="inputbox">
+            <ion-icon name="call-outline"></ion-icon>
+            <input type="tel" id="phone-number" name="phone-number" required pattern="^\+?[0-9]{1,13}$" title="Phone number must start with + and contain up to 13 digits">
+            <label for="phone-number" th:text="#{signup.phoneNumber}">Phone Number</label>
+        </div>
+
+        <!-- ID Type -->
+        <div class="inputbox">
+            <ion-icon name="id-card-outline"></ion-icon>
+            <label for="id-type" th:text="#{signup.idType}"></label>
+            <select id="id-type" name="id-type" required>
+                <option value="" disabled selected th:text="#{signup.selectIdType}"></option>
+                <option value="passport" th:text="#{signup.passport}">Passport</option>
+                <option value="national-id" th:text="#{signup.nationalId}">National ID</option>
+                <option value="national-foreigner-id" th:text="#{signup.nationalForeignerId}">National Foreigner ID</option>
+            </select>
+        </div>
+
+        <!-- ID Number -->
+        <div class="inputbox">
+            <ion-icon name="id-card-outline"></ion-icon>
+            <input type="text" id="id-number" name="id-number" required pattern="^[0-9]{1,10}$" title="ID number must be 10 digits or less">
+            <label for="id-number" th:text="#{signup.idNumber}">ID Number</label>
+        </div>
+
+        <!-- Username -->
+        <div class="inputbox">
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" id="username" name="username" required>
+            <label for="username" th:text="#{signup.username}">Username</label>
+        </div>
+
+        <!-- Email -->
+        <div class="inputbox">
+            <ion-icon name="mail-outline"></ion-icon>
+            <input type="email" id="email" name="email" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$" title="Please enter a valid Gmail address (e.g., example@gmail.com)">
+            <label for="email" th:text="#{signup.email}">Email</label>
+        </div>
+
+        <!-- Password -->
+        <div class="inputbox">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" id="password" name="password" required>
+            <label for="password" th:text="#{signup.password}">Password</label>
+        </div>
+
+        <!-- Confirm Password -->
+        <div class="inputbox">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" id="passwordcon" name="passwordcon" required>
+            <label for="passwordcon" th:text="#{signup.confirmPassword}">Confirm Password</label>
+        </div>
+
+        <!-- Role Selection -->
+        <div class="inputbox">
+            <ion-icon name="people-outline"></ion-icon>
+            <label for="role" th:text="#{signup.role}">Role</label>
+            <select id="role" name="role" required>
+                <option value="" disabled selected th:text="#{signup.selectRole}">Select your role</option>
+                <option value="ROLE_USER" th:text="#{signup.userRole}">User</option>
+                <option value="ROLE_ADMIN" th:text="#{signup.adminRole}">Admin</option>
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" th:text="#{signup.submit}">Sign Up</button>
+
+        <!-- Link to Log In -->
+        <div class="register">
+            <p>
+                    <span th:text="#{signup.alreadyAccount}">Already have an account? </span>
+                        <a href="/req/login" class="signup-link" th:text="#{signup.logIn}">Log In</a>
+            </p>
+        </div>
+    </form>
+</section>
+
+<script>
+    function changeLanguage(select) {
+        const lang = select.value;
+        window.location.search = `?lang=${lang}`; // Set the query parameter for language
+    }
+</script>
+</body>
+</html>

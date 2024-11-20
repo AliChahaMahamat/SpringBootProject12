@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #333;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .user-info {
+            margin: 20px 0;
+        }
+
+        .menu {
+            list-style-type: none;
+            padding: 0;
+
+        }
+
+        .menu li {
+            padding: 10px;
+            background-color: #f0f0f0;
+            margin: 5px 0;
+        }
+
+        /* Additional styles for the logout button */
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: red;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logout-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Styles for the profile picture upload form */
+        .upload-form {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            width: 1100px;
+            text-align: center;
+            position: relative;
+
+        }
+
+        .upload-form h3 {
+            font-size: 1em;
+            margin: 0 0 10px;
+        }
+
+        .upload-form input[type="text"],
+        .upload-form input[type="file"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .upload-form button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 0.9em;
+            transition: background-color 0.3s ease;
+        }
+
+        .upload-form button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to Our Online Banking Service</h1>
+</header>
+
+<!-- Logout Button -->
+<button class="logout-button" onclick="window.location.href='/logout'">Logout</button>
+
+<!-- Navigation Menu -->
+<nav>
+    <a th:href="@{/index}">Home</a>
+    <a th:href="@{/about}">About</a>
+    <a th:href="@{/services}">Services</a>
+    <a th:href="@{/contact}">Contact</a>
+</nav>
+
+<main>
+    <!-- User information (username and role) -->
+    <div class="user-info">
+        <h2>Welcome, <span th:text="${username}">User</span>!</h2>
+        <p>Your role is: <strong><span th:text="${role}">USER</span></strong></p>
+
+        <!-- Profile Picture Upload Form -->
+        <div class="upload-form">
+            <h3>Upload Profile Picture</h3>
+            <form action="/api/user/upload-profile-picture" method="post" enctype="multipart/form-data">
+                <input type="text" name="username" placeholder="Enter your username" required>
+                <input type="file" name="file" accept="image/*" required>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Dynamic menu based on role -->
+    <h3>Menu</h3>
+    <ul class="menu">
+        <!-- If the user is an Admin -->
+        <li th:if="${role == 'ROLE_ADMIN'}">Admin Dashboard</li>
+        <li th:if="${role == 'ROLE_ADMIN'}">Manage Users</li>
+        <li th:if="${role == 'ROLE_ADMIN'}">Reports</li>
+        <li th:if="${role == 'ROLE_ADMIN'}">Settings</li>
+
+        <!-- If the user is a Regular User -->
+        <li th:if="${role == 'ROLE_USER'}">Notifications</li>
+        <li th:if="${role == 'ROLE_USER'}">Account Overview</li>
+        <li th:if="${role == 'ROLE_USER'}">Transactions</li>
+        <li th:if="${role == 'ROLE_USER'}">Settings</li>
+    </ul>
+</main>
+
+<footer>
+    <p>Online Banking Service &copy; 2024</p>
+</footer>
+</body>
+</html>

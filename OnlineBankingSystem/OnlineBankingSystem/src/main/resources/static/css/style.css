@@ -1,0 +1,246 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-image: url(https://static.vecteezy.com/system/resources/previews/010/518/831/non_2x/digital-finance-and-banking-investment-service-in-futuristic-background-bank-building-with-online-growth-graph-investment-secure-money-and-financial-innovation-technology-vector.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+section {
+    position: relative;
+    max-width: 500px;
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 20px;
+    backdrop-filter: blur(55px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 3rem;
+    transition: all 0.5s ease-in-out;
+}
+
+h1 {
+  font-size: 2rem;
+  color: #fff;
+  text-align: center;
+}
+
+.inputbox {
+    position: relative;
+    margin: 20px 0;
+    max-width: 550px;
+    border-bottom: 2px solid #fff;
+    transition: all 0.5s ease-in-out;
+}
+
+.inputbox input, .inputbox select {
+    width: 100%;
+    height: 40px; /* Ensure consistent height */
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    padding: 0 35px 0 5px; /* Padding for space between text and icon */
+    color: #fff;
+    appearance: none; /* Remove default arrow for select */
+}
+
+.inputbox ion-icon {
+    position: absolute;
+    right: 8px;
+    color: #fff;
+    font-size: 1.2rem;
+    top: 12px;
+    transition: all 0.5s ease-in-out;
+}
+
+.inputbox label {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1rem;
+    pointer-events: none;
+    transition: all 0.5s ease-in-out;
+}
+
+/* Correct selector for select's label focus/valid behavior */
+select:focus ~ label,
+select:valid ~ label,
+input:focus ~ label,
+input:valid ~ label {
+    top: -5px;
+    font-size: 0.9rem;
+    color: #a8a8a8;
+}
+
+/* Validation feedback styles */
+input.invalid {
+    border-bottom: 2px solid #ff4d4d;  /* Red border for invalid input */
+}
+
+input.invalid ~ label {
+    color: #ff4d4d;                    /* Red label for invalid input */
+}
+
+.invalid-feedback {
+    color: #ff4d4d;
+    font-size: 0.8rem;
+    margin-top: 5px;
+}
+
+/* Style the dropdown arrow for select */
+.inputbox select {
+    background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"%3E%3Cpath fill="white" d="M10 12l-5-5h10l-5 5z"/%3E%3C/svg%3E');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+}
+
+input:focus ~ label,
+input:valid ~ label {
+    top: -5px;
+    font-size: 0.9rem;
+    color: #a8a8a8;
+}
+
+/* Form shake animation for invalid submission */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-10px); }
+    40%, 80% { transform: translateX(10px); }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+button {
+    width: 100%;
+    height: 40px;
+    border-radius: 40px;
+    background-color: rgba(255, 255, 255, 1);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.register {
+    font-size: 0.9rem;
+    color: #fff;
+    text-align: center;
+    margin: 25px 0 10px;
+    transition: all 0.5s ease-in-out;
+}
+
+.register p a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    transition: all 0.5s ease-in-out;
+}
+
+.register p a:hover {
+    text-decoration: underline;
+    color: #a8a8a8;
+}
+
+/* Style for the admin checkbox */
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 20px 0;
+}
+
+/* Style the checkbox itself */
+.checkbox-wrapper input[type="checkbox"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+/* Change checkbox border and background when checked */
+.checkbox-wrapper input[type="checkbox"]:checked {
+    background-color: #0072ff; /* Blue background when checked */
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked::before {
+    content: '\2713'; /* Checkmark symbol */
+    position: absolute;
+    left: 3px;
+    top: 1px;
+    color: #fff; /* White checkmark */
+    font-size: 16px;
+}
+
+/* Style the label for the checkbox */
+.checkbox-wrapper label {
+    color: black; /* Make the label text black */
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+
+.social-login {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 15px 0;
+}
+
+.btn-social {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    padding: 12px 20px;
+    border-radius: 15px;
+    color: #ffffff;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-social:nth-child(1) {
+    background-color: #3b5998;
+}
+
+.btn-social:nth-child(2) {
+    background-color: #C13584;
+}
+
+.btn-social:hover {
+    filter: brightness(1.1);
+}
+
+ion-icon {
+    margin-right: 8px;
+    font-size: 1.2em;
+}

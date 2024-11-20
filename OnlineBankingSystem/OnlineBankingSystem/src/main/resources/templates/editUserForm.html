@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit User</title>
+    <style>
+        /* Basic CSS styling */
+        body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 0;
+          background-image: url('https://static.vecteezy.com/system/resources/previews/010/518/831/non_2x/digital-finance-and-banking-investment-service-in-futuristic-background-bank-building-with-online-growth-graph-investment-secure-money-and-financial-innovation-technology-vector.jpg');
+          background-size: cover;
+          background-position: center;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          animation: fadeIn 0.5s;
+          position: relative;
+          overflow: hidden;
+        }
+
+        /* Adding a smoky overlay */
+        body::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.5); /* Slightly transparent dark overlay */
+          background: linear-gradient(145deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+          z-index: 1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background: rgba(172, 173, 175, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.5s ease forwards;
+            z-index: 2;
+            position: relative;
+            margin: auto;
+        }
+
+        @media (max-width: 768px) {
+            .form-group {
+                flex: 1 1 100%;
+                padding: 0;
+            }
+        }
+
+        h1 {
+          color:  hsl(120, 3%, 6%); /* Dark heading color */
+          font-size: 20px;
+          text-align: center;
+          margin-bottom: 20px;
+          position: relative;
+          top: -10px;
+        }
+
+        form {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+        }
+
+        .form-group {
+          flex: 1 1 45%;
+          margin-bottom: 15px;
+          padding: 0 10px;
+        }
+
+        label {
+          display: block;
+          margin-bottom: 2px;
+          font-weight: bold;
+          color: #333; /* Darker color for better visibility */
+          font-size:15px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        input[type="password"],
+        select {
+          width: 100%;
+          padding: 12px;
+          border: 1px solid #ccc;
+          border-radius: 15px;
+          font-size: 13px;
+          color: #333;
+          box-sizing: border-box;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="date"]:focus,
+        input[type="password"]:focus,
+        select:focus {
+          border-color:  #4CAF50; /* Green focus color */
+          outline: none;
+        }
+
+        .form-buttons {
+          text-align: center;
+          margin-top: 20px;
+          width: 100%;
+        }
+
+        .form-buttons button {
+          background-color: #4CAF50; /* Green button color */
+          color: #fff;
+          padding: 12px 20px;
+          border: none;
+          border-radius: 15px;
+          cursor: pointer;
+          margin: 0 10px;
+        }
+
+        .form-buttons button[type="button"] {
+          background-color: #6c757d; /* Neutral grey for cancel */
+        }
+
+        .form-buttons button:hover {
+          background-color: #d35400; /* Darker orange for hover */
+        }
+
+        .form-buttons button[type="button"]:hover {
+          background-color: #5a6268; /* Darker grey for hover */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Edit User</h1>
+
+    <form th:action="@{'/editUser/' + ${user.id}}" method="post">
+        <div class="form-group">
+            <label>Username:</label>
+            <input type="text" name="username" th:value="${user.username}" required />
+        </div>
+
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" name="email" th:value="${user.email}" required />
+        </div>
+
+        <div class="form-group">
+            <label>Full Name:</label>
+            <input type="text" name="fullName" th:value="${user.fullName}" required />
+        </div>
+
+        <div class="form-group">
+            <label>Date of Birth:</label>
+            <input type="date" name="dateOfBirth" th:value="${user.dateOfBirth != null ? #dates.format(user.dateOfBirth, 'yyyy-MM-dd') : ''}" required />
+        </div>
+
+        <div class="form-group">
+            <label>ID Type:</label>
+            <select name="idType" th:value="${user.idType}" required>
+                <option value="Passport" th:selected="${user.idType == 'Passport'}">Passport</option>
+                <option value="National ID" th:selected="${user.idType == 'National ID'}">National ID</option>
+                <option value="National Foreigner ID" th:selected="${user.idType == 'National Foreigner ID'}">National Foreigner ID</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>ID Number:</label>
+            <input type="text" name="idNumber" th:value="${user.idNumber}" required />
+        </div>
+
+        <div class="form-group">
+            <label>Phone Number:</label>
+            <input type="text" name="phoneNumber" th:value="${user.phoneNumber}" required />
+        </div>
+
+        <div class="form-group">
+            <label>Password:</label>
+            <input type="password" name="password" placeholder="Enter new password or leave blank" />
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit">Update</button>
+            <a href="/adminUsers"><button type="button">Cancel</button></a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin - User List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: Arial, sans-serif;
+            background-image: url(https://static.vecteezy.com/system/resources/previews/010/518/831/non_2x/digital-finance-and-banking-investment-service-in-futuristic-background-bank-building-with-online-growth-graph-investment-secure-money-and-financial-innovation-technology-vector.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-top: 39px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        .filter-container input {
+            padding: 10px;
+            width: 20%; /* Adjust width as needed */
+            border: 2px solid #4CAF50;
+            border-radius: 15px;
+            transition: border 0.3s;
+            position: absolute;
+            top: 115px;
+            left: 160px;
+        }
+        .filter-container input::placeholder {
+            font-size: 12px; /* Adjusted font size */
+            opacity: 0.8; /* Optional for readability */
+        }
+
+
+        /* Style the search input */
+        .search-placeholder  {
+            text-align: center;
+            margin: 20px auto;
+            position: relative;
+        }
+        .search-placeholder input {
+            padding: 10px;
+            width: 120px; /* Set specific width */
+            border: 3px solid #4CAF50;
+            border-radius: 15px;
+            transition: border 0.3s;
+            position: absolute; /* Keeps it positioned within the container */
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Styling for the placeholder text */
+        .search-placeholder input::placeholder {
+            font-size: 10px;
+            opacity: 0.8;
+        }
+
+
+        table {
+            width: 150%;
+            max-width: 1200px;
+            border-collapse: collapse;
+            margin: 50px auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+            table-layout: fixed;
+            border-radius: 5px;
+            overflow: hidden;
+            position: absolute; /* Keeps it positioned within the container */
+            top: 140px;
+            right: 40px;
+
+        }
+
+        th, td {
+            padding: 18px 14px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        td {
+            font-size: 13px;
+            color: #333;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 12px;
+            margin-bottom: 18px;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        footer {
+            text-align: center;
+            margin: 30px 0;
+            font-size: 14px;
+        }
+
+        footer a {
+            color: #4CAF50;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #45a049;
+        }
+
+        #pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        #pagination button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 0 10px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        #pagination button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        #pagination button:active {
+            transform: translateY(1px);
+        }
+
+        #pageDisplay {
+            font-size: 16px;
+            color: white;
+            margin: 0 10px;
+        }
+
+        tr {
+            transition: transform 0.5s ease, background-color 0.3s ease;
+        }
+
+        tr.sorted {
+            background-color: rgba(76, 175, 80, 0.3);
+        }
+        /* Additional styles for the logout button */
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #b12828;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .logout-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .logout-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        .addUserButton {
+            position: absolute;
+            top: 135px;
+            left: 40px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 15px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .addUserButton:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .addUserButton:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+
+
+        .download-button {
+            position: absolute;
+            top: 135px;
+            right: 40px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 14px;
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .download-button:hover {
+            background-color: #f30e0e;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .download-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        .download-button i {
+             margin-right: 6px; /* Space between icon and text */
+        }
+
+        .delete-button {
+            background-color: #e60e0e;
+        }
+
+
+        .notificationsButton {
+            position: absolute;
+            top: 135px;
+            left: 450px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px; /* Adjusted padding for icon space */
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Space between icon and text */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+        }
+
+        .notificationsButton:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .notificationsButton:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+    </style>
+
+</head>
+<body>
+
+<h1>List of Users</h1>
+
+<!-- Logout Button -->
+<button class="logout-button" onclick="window.location.href='/logout'">Logout</button>
+
+<button id="notificationsButton" onclick="viewNotifications()" class="notificationsButton">
+    <i class="fas fa-bell"></i> View Notifications (<span id="notificationCount">0</span>)
+</button>
+
+
+<!-- Button to download user list -->
+<form action="/admin/download-users" method="get" onsubmit="return confirmDownload()">
+    <button class="download-button" type="submit">
+        <i class="fas fa-download"></i> Download User List
+    </button>
+</form>
+
+<!-- Filter Container -->
+<div class="filter-container">
+    <input type="text" class="search-placeholder" id="userFilter" placeholder="Search for users by User Name" onkeyup="filterUsers()">
+</div>
+<!-- Add User Button -->
+<a href="/addUser" role="button">
+    <button class="addUserButton" id="addUserButton">Add User</button>
+</a>
+
+<!-- User Table with Pagination -->
+<div class="table-container">
+    <table id="userTable">
+        <thead>
+        <tr>
+            <th onclick="sortTable(0)">Username</th>
+            <th onclick="sortTable(1)">Email</th>
+            <th onclick="sortTable(2)">Full Name</th>
+            <th onclick="sortTable(3)">Date of Birth</th>
+            <th onclick="sortTable(4)">ID Type</th>
+            <th onclick="sortTable(5)">ID Number</th>
+            <th onclick="sortTable(6)">Phone Number</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody id="userTableBody">
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}">Username</td>
+            <td th:text="${user.email}">Email</td>
+            <td th:text="${user.fullName}">Full Name</td>
+            <td th:text="${user.dateOfBirth}">Date of Birth</td>
+            <td th:text="${user.idType}">ID Type</td>
+            <td th:text="${user.idNumber}">ID Number</td>
+            <td th:text="${user.phoneNumber}">Phone Number</td>
+            <td class="action-buttons">
+                <a th:href="@{/editUser/{id}(id=${user.id})}">
+                    <button>Edit</button>
+                </a>
+                <form th:action="@{/api/users/{id}/delete(id=${user.id})}" method="post" style="display:inline;">
+                    <button type="submit" class="delete-button" onclick="return confirm('Are you sure you want to delete this user?');">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Pagination -->
+<div id="pagination">
+    <button id="prevPage" onclick="changePage(-1)">Previous</button>
+    <span id="pageDisplay">Page 1</span>
+    <button id="nextPage" onclick="changePage(1)">Next</button>
+</div>
+
+<script>
+    const rowsPerPage = 3;
+    let currentPage = 1;
+    let allRows = Array.from(document.querySelectorAll('#userTableBody tr'));
+    let displayedRows = [...allRows];
+    let sortDirection = 1; // 1 for ascending, -1 for descending
+    let lastSortedColumn = null;
+
+    // Pagination function to switch pages
+    function changePage(step) {
+        const totalPages = Math.ceil(displayedRows.length / rowsPerPage);
+        currentPage += step;
+
+        if (currentPage < 1) currentPage = 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+
+        displayRows();
+        document.getElementById('pageDisplay').innerText = `Page ${currentPage}`;
+    }
+
+    // Display the rows for the current page
+    function displayRows() {
+        const start = (currentPage - 1) * rowsPerPage;
+        const end = start + rowsPerPage;
+
+        document.querySelector('#userTableBody').innerHTML = '';
+        displayedRows.slice(start, end).forEach(row => {
+            document.querySelector('#userTableBody').appendChild(row);
+        });
+    }
+
+    displayRows();
+
+    // Sorting functionality with indicator
+    function sortTable(columnIndex) {
+        const rows = Array.from(document.querySelectorAll('#userTableBody tr'));
+        const sortedRows = rows.sort((a, b) => {
+            const aText = a.cells[columnIndex].textContent.trim();
+            const bText = b.cells[columnIndex].textContent.trim();
+            return aText.localeCompare(bText) * sortDirection;
+        });
+
+        // Clear previous sorted column background and indicator
+        if (lastSortedColumn !== null && lastSortedColumn !== columnIndex) {
+            document.querySelectorAll('th')[lastSortedColumn].style.backgroundColor = '#d2691e';
+            document.querySelectorAll('th')[lastSortedColumn].innerHTML = document.querySelectorAll('th')[lastSortedColumn].innerHTML.replace(/ ↑| ↓/, '');
+        }
+
+        // Toggle sort direction and update the indicator
+        sortDirection *= (lastSortedColumn === columnIndex) ? -1 : 1;
+        const sortIndicator = sortDirection === 1 ? ' ↑' : ' ↓';
+        document.querySelectorAll('th')[columnIndex].style.backgroundColor = '#b76e34';
+        document.querySelectorAll('th')[columnIndex].innerHTML = document.querySelectorAll('th')[columnIndex].innerHTML.split(' ')[0] + sortIndicator;
+
+        lastSortedColumn = columnIndex;
+        displayedRows = sortedRows;
+        displayRows();
+    }
+
+    // User filter functionality
+    function filterUsers() {
+        const filter = document.getElementById('userFilter').value.toLowerCase();
+        displayedRows = allRows.filter(row => {
+            return row.textContent.toLowerCase().includes(filter);
+        });
+        currentPage = 1; // Reset to first page after filtering
+        displayRows();
+    }
+
+    function confirmDownload() {
+        return confirm("Are you sure you want to download the user list?");
+    }
+
+ // Fetch unread notification count from the server
+function fetchNotificationCount() {
+    fetch('/admin/notifications/count') // Adjusted endpoint
+        .then(response => response.json())
+        .then(data => {
+            // Update notification count
+            document.getElementById('notificationCount').textContent = data.count || 0;
+        })
+        .catch(error => console.error('Error fetching notification count:', error));
+}
+
+
+// Load notification count on page load and refresh every 60 seconds
+document.addEventListener('DOMContentLoaded', () => {
+    fetchNotificationCount();
+    setInterval(fetchNotificationCount, 60000); // Refresh count every 60 seconds
+});
+
+// Redirect to notifications page when button is clicked
+function viewNotifications() {
+    window.location.href = '/admin/notifications'; // Redirect to notifications page
+}
+
+</script>
+
+</body>
+</html>

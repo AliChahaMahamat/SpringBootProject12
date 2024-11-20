@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        /* Body background */
+        body {
+            background-color: #1e76b9; /* Dark background for consistency */
+            color: #f5f5f5; /* Light text color for readability */
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: rgba(16, 186, 90, 0.9); /* Updated to a semi-transparent black */
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 10px 20px;
+            border-bottom: 2px solid  #4CAF50; /* Coral border for a soft contrast */
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .navbar ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .navbar ul li {
+            font-family: Century, sans-serif;
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 0 10px;
+        }
+
+        .navbar ul li a {
+            text-decoration: none;
+            color: #f5f5f5; /* White for readability */
+            padding: 8px 25px;
+            transition: all 0.5s ease;
+        }
+
+        .navbar ul li a:hover {
+            background-color: #ffebcd; /* Light coral background for hover */
+            color: #121212; /* Dark text for contrast */
+            box-shadow: 0 0 10px #f5f5f5;
+        }
+
+        /* About Section */
+        #about {
+            display: flex;
+            align-items: center;
+            padding: 50px;
+            background-color: #121212; /* Consistent dark background */
+            color: #f5f5f5;
+            height: 100vh;
+        }
+
+        /* About Content */
+        .about-content {
+            max-width: 50%;
+            margin-left: 20px;
+            background-color: rgba(53, 52, 52, 0.7); /* Light overlay for content background */
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .about-content h2 {
+            font-family: 'Georgia', serif;
+            font-size: 2rem;
+            color:  #4CAF50; /* Coral color for heading */
+            margin-bottom: 15px;
+        }
+
+        .about-content p {
+            font-family: 'Georgia', serif;
+            font-size: 1.2rem;
+            line-height: 1.6;
+            text-align: center;
+        }
+
+        /* Download Link */
+        .download-link {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color:  #4CAF50; /* Coral color for link */
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .download-link:hover {
+            color: #ff6347; /* Slightly darker coral on hover */
+        }
+
+        /* Travel Image */
+        .about-image {
+            max-width: 100%;
+            margin-right: 20px;
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        /* Centered Heading Container */
+        .heading-container {
+            position: absolute;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+        }
+
+        /* Heading Style */
+        .heading-container h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #ffffff;
+        }
+         footer {
+            background-color:  #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+
+    </style>
+
+</head>
+<body>
+<header class="header">
+    <nav class="navbar">
+        <ul>
+            <li><a th:href="@{/index}">Home</a></li>
+            <li><a th:href="@{/about}">About</a></li>
+            <li><a th:href="@{/services}">Services</a></li>
+            <li><a th:href="@{/contact}">Contact</a></li>
+        </ul>
+    </nav>
+</header>
+
+<!-- Centered Heading -->
+<div class="heading-container">
+    <h1>About Us</h1>
+</div>
+
+<section id="about">
+    <!-- Travel Image -->
+    <a href="https://example.com" target="_blank">
+        <div class="about-image">
+            <img src="https://youthtimemag.com/wp-content/uploads/2022/08/shutterstock_1900200964.png" alt="Airplane Isolated on Black Background">
+        </div>
+    </a>
+
+    <!-- About Text Content with Container -->
+    <div class="about-content">
+        <h2>What do we offer?</h2> <!-- Added question heading -->
+        <p>Welcome to our company! We are dedicated to providing the best services to our clients. Our team is composed of highly skilled professionals who are passionate about what they do. Our mission is to deliver exceptional quality and value in every project we undertake. Thank you for visiting our site!</p>
+        <!-- Download Link with onclick event -->
+        <a class="download-link" href="/download-pdf" download onclick="confirmDownload(event)">
+            For more information, download our PDF
+        </a>
+    </div>
+</section>
+<footer>
+    <p>Online Banking Service &copy; 2024</p>
+</footer>
+<script>
+    function confirmDownload(event) {
+        // Show a confirmation dialog to the user
+        const userConfirmed = confirm("Are you sure you want to download this PDF?");
+
+        // If the user cancels, prevent the download
+        if (!userConfirmed) {
+            event.preventDefault();
+        }
+    }
+</script>
+</body>
+</html>

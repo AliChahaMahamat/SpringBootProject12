@@ -1,0 +1,17 @@
+server:
+  port: 8081
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+ 
+    driver-class-name: org.postgresql.Driver  # Added PostgreSQL driver
+  jpa:
+    hibernate:
+      ddl-auto: update  # Use 'update' or 'create-drop' based on your need
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  

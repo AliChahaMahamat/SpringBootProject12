@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifications</title>
+    <style>
+        .notifications-container {
+            width: 60%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .notification-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .notification-list li {
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .notification-list li.unread {
+            background-color: #f9f9f9;
+            font-weight: bold;
+        }
+
+        .notification-message {
+            font-size: 1.1em;
+        }
+
+        .notification-date {
+            color: #888;
+            font-size: 0.9em;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button[disabled] {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<div class="notifications-container">
+    <h2>Unread Notifications</h2>
+    <ul class="notification-list">
+        <li th:each="notification : ${notifications}"
+            th:classappend="${notification.read ? 'read' : 'unread'}">
+            <div class="notification-message" th:text="${notification.message}">Notification message here</div>
+            <div class="notification-date" th:text="${notification.formattedCreatedAt}">Date here</div>
+            <form th:action="@{/admin/notifications/{id}/mark-as-read(id=${notification.id})}" method="post">
+                <button type="submit" th:disabled="${notification.read}">Mark as Read</button>
+            </form>
+        </li>
+    </ul>
+</div>
+
+</body>
+</html>
